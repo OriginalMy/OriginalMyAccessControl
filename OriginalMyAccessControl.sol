@@ -1,5 +1,5 @@
 contract OriginalMyAccessControl {
-  address public owner;
+  	address public owner;
 	mapping(address => bool)  superUser;
 	mapping(address => bool)  manager;
 	mapping(address => bool)  user;
@@ -10,44 +10,42 @@ contract OriginalMyAccessControl {
 	event User(address userAddress, bool enabled);
 	
 	
-	
-    function OriginalMyAccessControl() {
-        owner = msg.sender;
+	function OriginalMyAccessControl() {
+		owner = msg.sender;
 		superUser[msg.sender] = true;
-    }
+	}
 	
 	modifier Owner {
-        if (msg.sender != owner) throw;
-    }
+        	if (msg.sender != owner) throw;
+	}
 
 	
-    function transferOwnership(address newOwner) Owner{
-        owner = newOwner;
-    }
+	function transferOwnership(address newOwner) Owner{
+		owner = newOwner;
+	}
 	
 	
 	/* Enable superuser mapping */
 	function enableSuperUser(address target, bool enable) {
 		if (!superUser[msg.sender] && msg.sender != owner) throw;
-
-        superUser[target] = enable;
-        SuperUser(target, enable);
-    }
+		superUser[target] = enable;
+		SuperUser(target, enable);
+    	}
 
 	
 	/* Enable manager mapping */
 	function enableManager(address target, bool enable) {
 		if (!superUser[msg.sender] && !manager[msg.sender] && msg.sender != owner) throw;
-        manager[target] = enable;
-        Manager(target, enable);
-    }
+		manager[target] = enable;
+		Manager(target, enable);
+    	}
 
 	/* Enable user mapping */
 	function enableUser(address target, bool enable) {
 		if (!superUser[msg.sender] && !manager[msg.sender] && msg.sender != owner) throw;
-        user[target] = enable;
-        User(target, enable);
-    }
+		user[target] = enable;
+		User(target, enable);
+	}
 
 	
 	/* Check Super User Access */
